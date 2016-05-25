@@ -32,6 +32,8 @@ class Sprite
     public const byte DISAPPEARING = 9;
     public const byte JUMPING = 9;
 
+    public const byte MARGINCOLISSION = 4;
+
     public Sprite()
     {
         startX = -1;
@@ -180,6 +182,15 @@ class Sprite
                 otherSprite.GetY(),
                 otherSprite.GetX() + otherSprite.GetWidth(),
                 otherSprite.GetY() + otherSprite.GetHeight() ));
+    }
+
+    public bool CollisionsWithArround(Sprite otherSprite)
+    {
+        return (visible && otherSprite.IsVisible() &&
+            CollisionsWith(otherSprite.GetX() - MARGINCOLISSION,
+                otherSprite.GetY() - MARGINCOLISSION,
+                otherSprite.GetX() + MARGINCOLISSION + otherSprite.GetWidth() + MARGINCOLISSION,
+                otherSprite.GetY() + MARGINCOLISSION + otherSprite.GetHeight() + MARGINCOLISSION));
     }
 
     public bool CollisionsWith(int xStart, int yStart, int xEnd, int yEnd)

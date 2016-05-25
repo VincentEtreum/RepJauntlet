@@ -28,3 +28,9 @@ C:\Users\vince\Desktop\Gauntlet\DamGame\obj\Debug\DamGame.pdb
 C:\Users\vince\Desktop\Gauntlet\DamGame\bin\Debug\DamGame.exe
 C:\Users\vince\Desktop\Gauntlet\DamGame\bin\Debug\DamGame.pdb
 C:\Users\vince\Desktop\Gauntlet\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\obj\Debug\DamGame.exe
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\obj\Debug\DamGame.pdb
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\bin\Debug\DamGame.exe
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\bin\Debug\DamGame.pdb
+C:\Users\vince\OneDrive\Documentos\GitHub\RepJauntlet\Jauntlet V0.2\Gauntlet\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache

@@ -67,7 +67,7 @@ namespace DamGame
                       int xPos = currentLevel.GetLeftMargin() + col * currentLevel.GetTileWidth();
                       int yPos = currentLevel.GetTopMargin()+ row * currentLevel.GetTileHeight();
 
-                      switch (currentLevel.GetLevelDescription(row, col))
+                      switch (currentLevel.GetLevelDescription(col, row))
                       {
           
                           // Q = key
@@ -225,6 +225,29 @@ namespace DamGame
                 {
                     player.SetKeys();                    
                     keys[i].Hide();
+                }
+            }
+
+            for (int i = 0; i < doors.Count; i++)
+            {
+                if(doors[i].CollisionsWithArround(player))
+                {
+                    if (player.GetKeys() > 0)
+                    {
+                        int xInLevel = (doors[i].GetX() - currentLevel.GetLeftMargin()) / currentLevel.GetTileWidth();
+                        int yInLevel = (doors[i].GetY() - currentLevel.GetTopMargin()) / currentLevel.GetTileHeight();
+
+                        player.UseKeys();
+
+                        doors[i].OpenDoor(currentLevel, doors[i].GetX(), doors[i].GetY());
+
+                        doors[i].Hide();
+                        
+                        //Falta eliminar todos los objetos colindantes del mapa
+                        score += 100;
+
+                        
+                    }
                 }
             }
         }

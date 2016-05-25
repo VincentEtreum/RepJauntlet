@@ -112,7 +112,7 @@
                 {
                     char tileType = levelDescription[row][col];
                     // If we don't need to check collisions with this tile, we skip it
-                    if (tileType == ' ' || tileType == 'Q')  // Empty space or key
+                    if (tileType == ' ' || tileType == 'Q' )  // Empty space or key
                         continue;
                     // Otherwise, lets calculate its corners and check rectangular collisions
                     int xPos = leftMargin + col * tileWidth;
@@ -162,7 +162,12 @@
 
         public char GetLevelDescription(int x, int y)
         {
-            return levelDescription[x][y];
+            return levelDescription[y][x];
+        }
+
+        public string[] GetLevelDescription()
+        {
+            return levelDescription;
         }
 
         public void SetSpacePosition(int x, int y)
