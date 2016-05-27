@@ -22,6 +22,32 @@
                     40, 10,
                     0xCC, 0xCC, 0xCC,
                     font18);
+
+
+                Hardware.WriteHiddenText(" Key:           Action:",
+                    40, 40,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
+                Hardware.WriteHiddenText("W or UP         Move Up",
+                    40, 60,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
+                Hardware.WriteHiddenText("S or Down       Move Down",
+                    40, 80,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
+                Hardware.WriteHiddenText("D  or Right     Move Right",
+                    40, 100,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
+                Hardware.WriteHiddenText("A or Left       Move Left",
+                    40, 120,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
+                Hardware.WriteHiddenText("Space           Shot",
+                    40, 140,
+                    0xCC, 0xCC, 0xCC,
+                    font18);
                 Hardware.DrawHiddenImage(player, 512, 384);
                 Hardware.ShowHiddenScreen();
             

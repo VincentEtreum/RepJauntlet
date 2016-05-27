@@ -1,0 +1,64 @@
+Entrega 1.
+
+Hacer disparos y corregir colisiones. V
+
+Entrega 2.
+
+Añadir vida que desciende con el tiempo al heroes. y añadir vida a los enemigos. V
+
+Entrega 3. 
+
+Añadir puertas y llaves.V
+
+Falta arreglar las puertas Horizontales porque son especiales y no quieren ir.
+
+Entrega 4.
+
+Corregir el scroll para que funcione correctamente. V
+
+Entrega 5.
+
+Añadir comida que aumente la salud y se rompa si recibe un ataque.V
+Añadir puntuacion al matar a enemigos. V
+
+Entrega 6. 
+
+Hacer que los enemigos persigan al personaje.
+que cuando colisionen le quiten vida. V
+
+Entrega 7.
+
+Hacer generadores de montruos.
+Añadir sonido al juego.
+
+Entrega 8.
+
+Añadir pociones que se podran usar dañando a los monstruos.
+
+Entrega 9.
+
+Añadir al guerrero, mago y arquero.
+
+Entrega 10.
+
+Juego cooperativo.
+
+Entrega 11. 
+
+Hacer niveles con lava y habitaciones ocultas.
+
+Entrega 12.
+
+Pantalla de inicio con historia.
+
+Entrega 13.
+
+Pantalla de creditos y puntuaciones
+
+Entrega 14.
+
+Juego cooperativo.
+
+Entrega 15.
+
+Hacer el boss final(dragon) Esta dependiendo de la complejidad sera de uno o mas dias.

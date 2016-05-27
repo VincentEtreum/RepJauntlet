@@ -10,10 +10,10 @@ namespace DamGame
         private List<Enemy> enemies = new List<Enemy>();
         private List<Key> keys = new List<Key>();
         private List<Door> doors = new List<Door>();
+        private List<Food> foods = new List<Food>();
         private Level currentLevel;
         private bool finished;
         private int numEnemies;
-        private int numKey;
         private Shot myShot;
         private char direction;
         byte countLife = 0;
@@ -28,11 +28,10 @@ namespace DamGame
             //Centering scroll to the character
 
             Random rnd = new Random();
+
             numEnemies = 2;
-            numKey = 3;
 
             Enemy enemy;
-            Key key;
 
             for (int i = 0; i < numEnemies; i++)
             {
@@ -40,13 +39,7 @@ namespace DamGame
                 enemy.SetSpeed(rnd.Next(1, 5), 0);
                 enemies.Add(enemy);
             }
-
-            for (int i = 0; i < numKey; i++)
-            {
-                key = new Key(rnd.Next(200, 800), rnd.Next(50, 600));
-                keys.Add(key);
-            }
-
+            
             currentLevel = new Level();
             finished = false;
 
@@ -59,6 +52,7 @@ namespace DamGame
             //create object into level
             Door newDoor;
             Key newKey;
+            Food newFood;
 
 
              for (int row = 0; row < currentLevel.GetlevelHeight(); row++)
@@ -78,11 +72,19 @@ namespace DamGame
                             keys.Add(newKey);
                             break;
                           case '[':
-                            newDoor = new Door(xPos, yPos);
+                            newDoor = new Door(xPos, yPos, 'V');
                             doors.Add(newDoor);
                             break;
-                       
-                     }
+                        case '_':
+                            newDoor = new Door(xPos, yPos, 'H');
+                            doors.Add(newDoor);
+                            break;
+                        case 'F':
+                            newFood = new Food(xPos, yPos);
+                            foods.Add(newFood);
+                            break;
+
+                    }
                 }
             }
 
@@ -221,33 +223,47 @@ namespace DamGame
 
             for (int i = 0; i < keys.Count; i++)
             {
-                if (keys[i].CollisionsWith(player))
+                if (keys[i].CollisionsWithArround(player))
                 {
                     player.SetKeys();                    
                     keys[i].Hide();
                 }
             }
 
+            for (int i = 0; i < foods.Count; i++)
+            {
+                if (foods[i].CollisionsWithArround(player))
+                {
+                    player.SetLife(player.GetLife() + 100);
+                    foods[i].UseFood(currentLevel, foods[i].GetX(), foods[i].GetY());
+                    foods[i].Hide();
+                }
+               
+            }
+
             for (int i = 0; i < doors.Count; i++)
             {
-                if(doors[i].CollisionsWithArround(player))
+                int xInLevel = (doors[i].GetX() - currentLevel.GetLeftMargin()) / currentLevel.GetTileWidth();
+                int yInLevel = (doors[i].GetY() - currentLevel.GetTopMargin()) / currentLevel.GetTileHeight();
+
+                if (doors[i].CollisionsWithArround(player))
                 {
                     if (player.GetKeys() > 0)
                     {
-                        int xInLevel = (doors[i].GetX() - currentLevel.GetLeftMargin()) / currentLevel.GetTileWidth();
-                        int yInLevel = (doors[i].GetY() - currentLevel.GetTopMargin()) / currentLevel.GetTileHeight();
-
                         player.UseKeys();
 
                         doors[i].OpenDoor(currentLevel, doors[i].GetX(), doors[i].GetY());
 
                         doors[i].Hide();
-                        
-                        //Falta eliminar todos los objetos colindantes del mapa
-                        score += 100;
 
-                        
-                    }
+                        score += 100;
+                                              
+                    }                    
+                }
+                
+                if (currentLevel.GetLevelDescription(xInLevel, yInLevel) == ' ')
+                {
+                    doors[i].Hide();
                 }
             }
         }

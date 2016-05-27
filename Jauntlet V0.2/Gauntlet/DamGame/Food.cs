@@ -1,21 +1,32 @@
-﻿namespace DamGame
+﻿using DamGame;
+
+class Food : Sprite
 {
-    class Food : Sprite
+    public Food(int newX, int newY)
     {
-        Food()
-        {
-            //TODO
-        }
+        LoadSequence(LEFT,
+            new string[] { "data/Images/GHOST_DOWN1.png" });
 
-        void UseFood()
-        {
-
-        }
-
-
-        void DestroiFood()
-        {
-
-        }
+        ChangeDirection(LEFT);
+        x = newX;
+        y = newY;
+        width = 16;
+        height = 16;
     }
-}
+
+
+    public void UseFood (Level myLevel, int x, int y)
+    {
+        int xInLevel = (x - myLevel.GetLeftMargin()) / myLevel.GetTileWidth();// operation inverse for calculate col o row in level
+        int yInLevel = (y - myLevel.GetTopMargin()) / myLevel.GetTileHeight();
+        
+        myLevel.SetSpacePosition(yInLevel, xInLevel);
+    }
+
+
+     void DestroiFood()
+     {
+
+     }
+ }
+    

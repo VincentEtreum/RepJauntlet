@@ -3,10 +3,14 @@ using DamGame;
 
 class Door : Sprite
 {
-    public Door(int newX, int newY)
+    public Door(int newX, int newY, char c)//c for door orientation 
     {
-        LoadSequence(LEFT,
-            new string[] { "data/Images/DoorV.png" });
+        if(c == 'V')
+            LoadSequence(LEFT,
+                new string[] { "data/Images/DoorV.png" });
+        else
+            LoadSequence(LEFT,
+                new string[] { "data/Images/DoorH.png" });
 
         ChangeDirection(LEFT);
         x = newX;

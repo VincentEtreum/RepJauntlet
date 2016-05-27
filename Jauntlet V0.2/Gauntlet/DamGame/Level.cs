@@ -8,7 +8,8 @@
         string[] levelDescription;
 
         Image floor, wallEndDown, wallEndLeft, wallEndRight, wallEndUp, 
-                wallHorizontal, wallVertical, endScreen, key, doorVertical;
+                wallHorizontal, wallVertical, endScreen, key, doorVertical, doorHorizontal,
+                food;
 
         public Level()
         {
@@ -20,7 +21,8 @@
             topMargin = 50;
 
             // 0 = Empty, 1 = floor, 2 = wallEndDown, 3 = wallEndLeft, 4 = wallEndRight
-            // 5 = wallEndUp, 6= wallHorizontal, 7 = wallVertical, Q = key , [ = doorVertical, _ = doorHorzontal
+            // 5 = wallEndUp, 6= wallHorizontal, 7 = wallVertical, Q = key , [ = doorVertical
+            // _ = doorHorzontal F= food
 
             levelDescription = new string[40]
             {
@@ -28,15 +30,15 @@
                 "|           Q                                    |",
                 "|  <--->   <--->   <--->   <--->   <--->   <---> |",
                 "|                                                |",
-                "|    ^       ^      Q^       ^       ^       ^   |",
+                "|    ^  Q    ^      Q^       ^       ^       ^   |",
                 "|    |       |       |       |       |       |   |",
-                "|    v       v       v       v       v       v   |",
-                "|    [                                           |",
-                "|    [                                           |",
+                "|____v       v       v       v       v       v   |",
+                "|F   [                                           |",
+                "|F   [                                           |",
                 "|    [                   Q                       |",
                 "|    [                                           |",
                 "|    [                                           |",
-                "|  <--->   <--->   <--->   <--->   <--->   <---> |",
+                "|__<--->   <--->   <--->   <--->   <--->   <---> |",
                 "|                                                |",
                 "|    ^       ^       ^       ^       ^       ^   |",
                 "|    |       |       |       |       |       |   |",
@@ -74,7 +76,9 @@
             wallHorizontal = new Image("data\\images\\WALL_HORIZONTAL.png");
             wallVertical = new Image("data\\images\\WALL_VERTICAL.png");
             doorVertical = new Image("data\\images\\DoorV.png");
+            doorHorizontal = new Image("data\\images\\DoorH.png");
             key = new Image("data\\images\\KEY.png");
+            food = new Image("data\\images\\FOOD.png");
 
         }
         
@@ -89,7 +93,8 @@
                     {
 
                         // 0 = Empty, " " = floor, v = wallEndDown, < = wallEndLeft, > = wallEndRight
-                        // ^ = wallEndUp, - = wallHorizontal, | = wallVertical Q = key
+                        // ^ = wallEndUp, - = wallHorizontal, | = wallVertical Q = key, [ = doorVertical
+                        // _ = doorHorzontal F= food
 
                         case ' ': Hardware.DrawHiddenImage(floor, xPos, yPos); break;
                         case 'v': Hardware.DrawHiddenImage(wallEndDown, xPos, yPos); break;
@@ -100,6 +105,8 @@
                         case '|': Hardware.DrawHiddenImage(wallVertical, xPos, yPos); break;
                         case 'Q': Hardware.DrawHiddenImage(key, xPos, yPos); break;
                         case '[': Hardware.DrawHiddenImage(doorVertical, xPos, yPos); break;
+                        case '_': Hardware.DrawHiddenImage(doorHorizontal, xPos, yPos); break;
+                        case 'F': Hardware.DrawHiddenImage(food, xPos, yPos); break;
 
                     }
                 }
@@ -112,7 +119,7 @@
                 {
                     char tileType = levelDescription[row][col];
                     // If we don't need to check collisions with this tile, we skip it
-                    if (tileType == ' ' || tileType == 'Q' )  // Empty space or key
+                    if (tileType == ' ')  // Empty space or key
                         continue;
                     // Otherwise, lets calculate its corners and check rectangular collisions
                     int xPos = leftMargin + col * tileWidth;

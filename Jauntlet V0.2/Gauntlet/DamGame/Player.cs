@@ -17,7 +17,7 @@ namespace DamGame
             ChangeDirection(LEFT);
 
             x = 138;
-            y = 138;
+            y = 116;
             xSpeed = 4;
             ySpeed = 4;
             width = 14;
