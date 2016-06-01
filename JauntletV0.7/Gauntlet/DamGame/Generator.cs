@@ -3,7 +3,7 @@
     class Generator : Enemy
     {
         
-        public Generator(int newX, int newY) : base (newX, newY)
+        public Generator(int newX, int newY, Game game) : base (newX, newY, game)
         {
             LoadSequence(LEFT,
                 new string[] { "data/Images/GENERADOR_GHOST.png" });

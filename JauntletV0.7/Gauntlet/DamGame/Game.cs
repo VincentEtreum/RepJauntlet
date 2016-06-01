@@ -18,6 +18,9 @@ namespace DamGame
         private Shot myShot;
         private bool shoting;
         private char direction;
+        private DateTime start;
+        private DateTime current;
+        private int time;
         byte countLife = 0;
         int score;
 
@@ -38,8 +41,7 @@ namespace DamGame
 
             for (int i = 0; i < numEnemies; i++)
             {
-                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600));
-                enemy.SetSpeed(rnd.Next(1, 5), 0);
+                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600), this);
                 enemies.Add(enemy);
             }
             
@@ -88,13 +90,14 @@ namespace DamGame
                             foods.Add(newFood);
                             break;
                         case 'G':
-                            newGenerator = new Generator(xPos, yPos);
+                            newGenerator = new Generator(xPos, yPos, this);
                             generators.Add(newGenerator);
                             break;
 
                     }
                 }
-            }
+            start = DateTime.Now;
+        }
 
             // Update screen
             public void DrawElements()
@@ -309,6 +312,27 @@ namespace DamGame
             }
         }
 
+
+        // Generates enemies
+        public void GenerateEnemy()
+        {
+            Enemy enemy;
+            Random rnd = new Random();
+            if (time % 5 == 0 && time != 0)
+            {
+                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600), this);
+                enemies.Add(enemy);
+            }
+        }
+
+        // This method returns player
+        public Player GetPlayer()
+        {
+            return player;
+        }
+
+
+
         public void CheckLife()
         {
             //cheking life player
@@ -339,6 +363,21 @@ namespace DamGame
         {
             // Pause till next frame (20 ms = 50 fps)
             Hardware.Pause(20);
+        }
+
+        // Check for valid move
+        public bool IsValidMove(int xMin, int yMin, int xMax, int yMax)
+        {
+            return currentLevel.IsValidMove(xMin, yMin, xMax, yMax);
+        }
+
+        // Calculate the current time
+        public void Timer()
+        {
+            current = DateTime.Now;
+            TimeSpan dif = current - start;
+            time = dif.Seconds;
+            //Console.WriteLine(time);
         }
 
         public void Run()
