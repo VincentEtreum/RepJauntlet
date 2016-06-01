@@ -5,7 +5,7 @@ class Door : Sprite
 {
     public Door(int newX, int newY, char c)//c for door orientation 
     {
-        if(c == 'V')
+        if (c == 'V')
             LoadSequence(LEFT,
                 new string[] { "data/Images/DoorV.png" });
         else
@@ -20,7 +20,7 @@ class Door : Sprite
     }
 
 
-    public void OpenDoor(Level myLevel,int x, int y)
+    public void OpenDoor(Level myLevel, int x, int y)
     {
         int xInLevel = (x - myLevel.GetLeftMargin()) / myLevel.GetTileWidth();// operation inverse for calculate col o row in level
         int yInLevel = (y - myLevel.GetTopMargin()) / myLevel.GetTileHeight();
@@ -41,7 +41,7 @@ class Door : Sprite
 
     }
 
-    void OpenDoorRec (Level myLevel, int x, int y)
+    void OpenDoorRec(Level myLevel, int x, int y)
     {
         myLevel.SetSpacePosition(y, x);
 
@@ -60,4 +60,3 @@ class Door : Sprite
     }
 }
 
-    

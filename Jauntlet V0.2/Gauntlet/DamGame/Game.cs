@@ -16,6 +16,9 @@ namespace DamGame
         private int numEnemies;
         private Shot myShot;
         private char direction;
+        private DateTime start;
+        private DateTime current;
+        private int time;
         byte countLife = 0;
         int score;
 
@@ -35,8 +38,7 @@ namespace DamGame
 
             for (int i = 0; i < numEnemies; i++)
             {
-                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600));
-                enemy.SetSpeed(rnd.Next(1, 5), 0);
+                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600), this);
                 enemies.Add(enemy);
             }
             
@@ -46,7 +48,6 @@ namespace DamGame
             myShot = new Shot(currentLevel, player.GetX(), player.GetY(), 0, 0);
             myShot.Hide();
             direction = 'R';
-
             score = 0;
 
             //create object into level
@@ -86,6 +87,8 @@ namespace DamGame
 
                     }
                 }
+
+            start = DateTime.Now;
             }
 
             // Update screen
@@ -202,7 +205,6 @@ namespace DamGame
                 enemies[i].Move();
         }
 
-
         // Check collisions and apply game logic
         public void CheckCollisions()
         {
@@ -248,6 +250,7 @@ namespace DamGame
 
                 if (doors[i].CollisionsWithArround(player))
                 {
+                    doors[i].Hide();
                     if (player.GetKeys() > 0)
                     {
                         player.UseKeys();
@@ -256,16 +259,28 @@ namespace DamGame
 
                         doors[i].Hide();
 
-                        score += 100;
-                                              
+                        score += 100;     
                     }                    
                 }
-                
-                if (currentLevel.GetLevelDescription(xInLevel, yInLevel) == ' ')
-                {
-                    doors[i].Hide();
-                }
             }
+        }
+
+        // Generates enemies
+        public void GenerateEnemy()
+        {
+            Enemy enemy;
+            Random rnd = new Random();
+            if (time % 5 == 0 && time != 0)
+            {
+                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600), this);
+                enemies.Add(enemy);
+            }
+        }
+        
+        // This method returns player
+        public Player GetPlayer()
+        {
+            return player;
         }
 
         public void CheckLife()
@@ -284,8 +299,6 @@ namespace DamGame
                     player.SetLife(player.GetLife() - 100);
 
             //lose life for second
-            
-
             if (countLife % 30 == 0)
             {
                 player.SetLife(player.GetLife() - 1);
@@ -300,6 +313,21 @@ namespace DamGame
             Hardware.Pause(20);
         }
 
+        // Check for valid move
+        public bool IsValidMove(int xMin, int yMin, int xMax, int yMax)
+        {
+            return currentLevel.IsValidMove(xMin, yMin, xMax, yMax);
+        }
+
+        // Calculate the current time
+        public void Timer()
+        {
+            current = DateTime.Now;
+            TimeSpan dif = current - start;
+            time = dif.Seconds;
+            //Console.WriteLine(time);
+        }
+
         public void Run()
         {
 
@@ -307,12 +335,13 @@ namespace DamGame
             while (!finished)
             {
                 DrawElements();
+                GenerateEnemy();
                 CheckKeys();
                 MoveElements();
                 CheckCollisions();
-                PauseTillNextFrame();
+                Timer();
                 CheckLife();
-                
+                PauseTillNextFrame();
             }
         }
     }

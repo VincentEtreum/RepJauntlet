@@ -191,7 +191,7 @@ public class Hardware
           width, height);
         Sdl.SDL_BlitSurface(image, ref origin, hiddenScreen, ref dest);
     }
-
+    
     // Alternate key definitions
 
     public static int KEY_ESC = Sdl.SDLK_ESCAPE;

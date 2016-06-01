@@ -220,8 +220,7 @@ class Sprite
         else
             return false;
     }
-
-
+    
     public void Restart()
     {
         x = startX;
