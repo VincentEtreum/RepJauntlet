@@ -1,4 +1,6 @@
-﻿namespace DamGame
+﻿using System.Collections.Generic;
+
+namespace DamGame
 {
     class Generator : Enemy
     {
@@ -26,6 +28,20 @@
             int yInLevel = (y - myLevel.GetTopMargin()) / myLevel.GetTileHeight();
 
             myLevel.SetSpacePosition(yInLevel, xInLevel);
+        }
+
+        public bool ArroundGhost(List<Generator> myGenerator ,List<Enemy> myEnemies)
+        {
+            for (int i= 0; i < myEnemies.Count; i++)
+            {
+                for (int j = 0; j < myGenerator.Count; j++)
+                {
+                    if (myGenerator[j].CollisionsWithArround(myEnemies[i]))
+                        return false;
+                }
+            }
+
+            return true;
         }
 
     }

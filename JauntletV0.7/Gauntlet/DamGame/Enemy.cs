@@ -1,4 +1,6 @@
-﻿namespace DamGame
+﻿using System.Collections.Generic;
+
+namespace DamGame
 {
     class Enemy : Sprite
     {
@@ -16,8 +18,8 @@
             ChangeDirection(LEFT);
             x = newX;
             y = newY;
-            xSpeed = 3;
-            ySpeed = 3;
+            xSpeed = 2;
+            ySpeed = 2;
             width = 16;
             height = 16;
             life = 15;
@@ -111,6 +113,22 @@
                 y += ySpeed;
 
             NextFrame();
+        }
+
+        // Valid move collision which others enemies
+
+        public bool isValidMove(List<Enemy> myEnemies, int pos)
+        {
+            for(int i = 0; i < myEnemies.Count; i++)
+            {
+                if(i != pos)
+                {
+                    if (this.CollisionsWithArround(myEnemies[i]))
+                        return false;
+                }
+            }
+
+            return true;
         }
 
         public void SetLife(int life)

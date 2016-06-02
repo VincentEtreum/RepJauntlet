@@ -28,7 +28,7 @@ que cuando colisionen le quiten vida. V
 
 Entrega 7.
 
-Hacer generadores de montruos.
+Hacer generadores de montruos.v
 Añadir sonido al juego.
 
 Entrega 8.

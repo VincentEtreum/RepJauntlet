@@ -212,8 +212,9 @@ namespace DamGame
         public void MoveElements()
         {
             myShot.Move();
-            for (int i = 0; i < numEnemies; i++)
-                enemies[i].Move();
+            for (int i = 0; i < enemies.Count; i++)
+                if(enemies[i].isValidMove(enemies, i))
+                    enemies[i].Move();
         }
 
 
@@ -235,6 +236,8 @@ namespace DamGame
                 }
             }
 
+            // logic generators
+
             for (int i = 0; i < generators.Count; i++)
             {
                 int xInLevel = (generators[i].GetX() - currentLevel.GetLeftMargin()) / currentLevel.GetTileWidth();
@@ -248,6 +251,7 @@ namespace DamGame
                     {
                         generators[i].Hide();
                         generators[i].DestroiGenerator(currentLevel, generators[i].GetX(), generators[i].GetY());
+                        generators.RemoveAt(i);
                         score += 300;
                     }
                     myShot.Hide();
@@ -317,11 +321,41 @@ namespace DamGame
         public void GenerateEnemy()
         {
             Enemy enemy;
-            Random rnd = new Random();
+            
             if (time % 5 == 0 && time != 0)
             {
-                enemy = new Enemy(rnd.Next(200, 800), rnd.Next(50, 600), this);
-                enemies.Add(enemy);
+                for (int i = 0; i < generators.Count; i++)
+                {
+                    if (IsValidMove(generators[i].GetX() + 16, generators[i].GetY(), generators[i].GetX() + 16, generators[i].GetY()) 
+                        && generators[i].ArroundGhost(generators, enemies))
+                    {
+                        enemy = new Enemy(generators[i].GetX() + 18, generators[i].GetY(), this);
+                        enemies.Add(enemy);
+
+                    }
+                    if (IsValidMove(generators[i].GetX() - 16, generators[i].GetY(), generators[i].GetX() - 16, generators[i].GetY())
+                             && generators[i].ArroundGhost(generators, enemies))
+                    {
+                        enemy = new Enemy(generators[i].GetX() - 18, generators[i].GetY(), this);
+                        enemies.Add(enemy);
+
+                    }
+                    if (IsValidMove(generators[i].GetX(), generators[i].GetY() + 16, generators[i].GetX(), generators[i].GetY() + 16)
+                             && generators[i].ArroundGhost(generators, enemies))
+                    {
+                        enemy = new Enemy(generators[i].GetX(), generators[i].GetY() + 18 , this);
+                        enemies.Add(enemy);
+
+                    }
+                    if (IsValidMove(generators[i].GetX(), generators[i].GetY() - 16, generators[i].GetX(), generators[i].GetY() - 16)
+                             && generators[i].ArroundGhost(generators, enemies))
+                    {
+                        enemy = new Enemy(generators[i].GetX(), generators[i].GetY() - 18, this);
+                        enemies.Add(enemy);
+
+                    }
+                }
+                
             }
         }
 
@@ -371,6 +405,7 @@ namespace DamGame
             return currentLevel.IsValidMove(xMin, yMin, xMax, yMax);
         }
 
+
         // Calculate the current time
         public void Timer()
         {
@@ -378,6 +413,11 @@ namespace DamGame
             TimeSpan dif = current - start;
             time = dif.Seconds;
             //Console.WriteLine(time);
+        }
+
+        public List<Enemy> GetEnemies()
+        {
+            return enemies;
         }
 
         public void Run()
@@ -392,7 +432,10 @@ namespace DamGame
                 CheckCollisions();
                 PauseTillNextFrame();
                 CheckLife();
-                
+                GenerateEnemy();
+                Timer();
+
+
             }
         }
     }

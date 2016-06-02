@@ -207,6 +207,20 @@ class Sprite
 
 
     // Check collisions between two rectangles
+    public static bool CheckArroundCollisions(
+        int r1xStart, int r1yStart, int r1xEnd, int r1yEnd,
+        int r2xStart, int r2yStart, int r2xEnd, int r2yEnd)
+    {
+        if ((r2xStart < r1xEnd + 2) &&
+                (r2xEnd > r1xStart - 2) &&
+                (r2yStart < r1yEnd + 2) &&
+                (r2yEnd > r1yStart - 2)
+                )
+            return true;
+        else
+            return false;
+    }
+
     public static bool CheckCollisions(
         int r1xStart, int r1yStart, int r1xEnd, int r1yEnd,
         int r2xStart, int r2yStart, int r2xEnd, int r2yEnd)
